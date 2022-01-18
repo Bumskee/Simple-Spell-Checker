@@ -12,7 +12,7 @@ class BKTree:
 
         current, children = self._tree
         while True:
-            dist = self._distance_func(node, current)
+            dist = self._distance_func(node, current, len(node), len(current))
             target = children.get(dist)
             if target is None:
                 children[dist] = (node, {})
@@ -28,7 +28,7 @@ class BKTree:
         result = []
         while candidates:
             candidate, children = candidates.popleft()
-            dist = self._distance_func(node, candidate)
+            dist = self._distance_func(node, candidate, len(node), len(candidate))
 
             if dist == 0:
                 found = True

@@ -1,6 +1,6 @@
 import numpy as np
 
-def levenshtein(seq1, seq2):
+def levenshtein(seq1, seq2, a, b):
     size_x = len(seq1) + 1
     size_y = len(seq2) + 1
     matrix = np.zeros ((size_x, size_y))

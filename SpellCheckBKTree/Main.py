@@ -1,21 +1,26 @@
 import tkinter as tk
 from Levenshtein import levenshtein
-from SpellCheckBottomUp import buttom_up_edit_distance
+from RecursiveFunc import editDistance
 from InitWordBank import initWordBank
 from insertionSort import insertionSort
 from BubbleSort import bubbleSort
 from ShellSort import shellSort
+from SelectionSort import selectionSort
+from RadixSort import radixSort
+
 # edit distance functions
 edit_func = {
     "levenshtein" : levenshtein,
-    "bottom up edit distance" : buttom_up_edit_distance,
+    "recursive function" : editDistance,
 }
 
 # sort function
 sort_func = {
     "insertion sort": insertionSort,
     "bubble sort": bubbleSort,
-    "shell sort": shellSort
+    "shell sort": shellSort,
+    "selection sort": selectionSort,
+    "radix sort": radixSort
 }
 
 # global index value
@@ -56,12 +61,12 @@ def Check():
     index = 0
     text = textentry.get()
     suggested, found = wordBank.search(text, 2)
-    insertionSort(suggested)
+    sort_func[sorting.get()](suggested)
     if (not found) and text != '':
         sug_label = tk.Label(window, text = suggested[index][1], font = "none 12")
-        sug_label.place(x=(152), y=(175))
+        sug_label.place(x=(142), y=(175))
         nextBut = tk.Button(window, text = "next", width = 6, command = Next)
-        nextBut.place(x=(202), y=(175))
+        nextBut.place(x=(212), y=(175))
 
 def Next():
     global index
@@ -85,13 +90,13 @@ sorting.set("insertion sort")
 edit_menu_label = tk.Label(window, text = "Choose the function for getting the minimum edit distance", font = "none 12")
 edit_menu_label.pack()
 
-edit_drop_down_menu = tk.OptionMenu(window, selected, "levenshtein", "bottom up edit distance")
+edit_drop_down_menu = tk.OptionMenu(window, selected, "levenshtein", "recursive function")
 edit_drop_down_menu.pack(pady=(0, 25))
 
 sort_menu_label = tk.Label(window, text = "Choose the function to sort the suggestion result", font = "none 12")
 sort_menu_label.pack()
 
-sort_drop_down_menu = tk.OptionMenu(window, sorting, "insertion sort", "bubble sort", "shell sort")
+sort_drop_down_menu = tk.OptionMenu(window, sorting, "insertion sort", "bubble sort", "shell sort", "selection sort", "radix sort")
 sort_drop_down_menu.pack(pady=(0, 70))
 
 initialize_but = tk.Button(window, text = "initialize", width = 6, command = initialize)
